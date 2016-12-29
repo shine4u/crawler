@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbximy.crawler.mapping.BasketballMatchStatMapper">
+
+    <sql id="cols">
+        id, seller_id, item_id, item_name, price, img_head, add_time, update_time, status, stock, edit_time, sold,
+        is_soldout, off_shelf_time, flag, flag_bin, extend1, extend2
+    </sql>
+<!--  
+boolean contains(@Param("matchId")int matchId);
+	
+	boolean add(int matchId, int matchType, Timestamp matchTime, int homeTeamId, int awayTeamId,
+			int homeTeamScore,int awayTeamScore, int homeTeamScoreHalf,int awayTeamScoreHalf,
+			double handicap, double totals);
+	-->		
+	
+
+    <select id="contains" resultType="BasketballMatchStat">
+        SELECT match_id FROM basketball_match_stat
+        <where> 
+        	match_id = #{matchId}
+    	</where>
+    </select>
+    
+</mapper>
