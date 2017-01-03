@@ -14,5 +14,5 @@ public interface TableMapper {
 	int drop(@Param("table_name")String tablename);
 	
 	/* 创建表 */
-	int create(String tablename, List<String> args);
+	int create(String tablename, List<String> cols);
 }

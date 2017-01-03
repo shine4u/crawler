@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.wbximy.crawler.domain.MatchStat;
 
 
-public interface BasketballMatchStatMapper {
+public interface MatchStatMapper {
 	
 	/* 根据matchId获取一条记录 */
 	MatchStat get(@Param("matchId")int matchId);

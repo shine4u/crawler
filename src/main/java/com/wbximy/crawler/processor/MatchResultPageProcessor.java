@@ -10,8 +10,9 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.mapping.BasketballMatchStatMapper;
+import com.wbximy.crawler.mapping.MatchStatMapper;
 import com.wbximy.crawler.tools.JSParser;
 import com.wbximy.crawler.tools.TypeConverter;
 
@@ -29,11 +30,11 @@ public class MatchResultPageProcessor implements PageProcessor {
 	private static final int maxMatchNum = 2; // 用于测试， -1表示不限制 
 	
 	@Autowired
-	private BasketballMatchStatMapper basketballMatchStatMapper;
+	private MatchStatMapper basketballMatchStatMapper;
 
 	@Override
 	public Site getSite() {
-		return SiteSetting.getSite("nba.win007.com");
+		return SiteSetting.getSite(Constants.NBA_WIN007_SITE);
 	}
 
 	// seasonId ymId matchResultStat :
