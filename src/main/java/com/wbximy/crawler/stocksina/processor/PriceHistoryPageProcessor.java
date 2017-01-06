@@ -27,15 +27,14 @@ public class PriceHistoryPageProcessor implements PageProcessor {
 		return SiteSetting.getSite(Constants.STOCK_SINA_SITE);
 	}
 
-	// http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sz000858&date=2016-03-28
+	// http://market.finance.sina.com.cn/pricehis.php?symbol=sz000858&startdate=2017-01-05&enddate=2017-01-05
 	@Override
 	public void process(Page page) {
 		// TODO Auto-generated method stub
 		String url = page.getUrl().toString();
 		String html = page.getHtml().toString();
 
-		String pat = "http://vip\\.stock\\.finance\\.sina\\.com\\.cn/quotes_service/view/vMS_tradehistory\\.php\\?symbol=(\\w+)&date=(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)";
-		// 赛程页，月份，时间排序
+		String pat = "";
 		Matcher matcher = Pattern.compile(pat).matcher(url);
 		if (!matcher.find()) {
 			logger.warn("can't parse data from url=" + url + " pat=" + pat);

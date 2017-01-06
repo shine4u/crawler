@@ -34,7 +34,6 @@ public class TradeHistoryPageProcessor implements PageProcessor {
 		String html = page.getHtml().toString();
 
 		String pat = "http://vip\\.stock\\.finance\\.sina\\.com\\.cn/quotes_service/view/vMS_tradehistory\\.php\\?symbol=(\\w+)&date=(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)";
-		// 赛程页，月份，时间排序
 		Matcher matcher = Pattern.compile(pat).matcher(url);
 		if (!matcher.find()) {
 			logger.warn("can't parse data from url=" + url + " pat=" + pat);
