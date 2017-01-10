@@ -1,4 +1,4 @@
-package com.wbximy.crawler;
+package com.wbximy.crawler.win007;
 
 import java.util.HashMap;
 import java.util.Map;

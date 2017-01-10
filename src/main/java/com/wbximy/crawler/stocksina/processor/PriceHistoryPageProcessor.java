@@ -34,40 +34,23 @@ public class PriceHistoryPageProcessor implements PageProcessor {
 		String url = page.getUrl().toString();
 		String html = page.getHtml().toString();
 
-		String pat = "";
-		Matcher matcher = Pattern.compile(pat).matcher(url);
+		Matcher matcher = Pattern.compile(Constants.PRICE_HISTORY_PATTERN).matcher(url);
 		if (!matcher.find()) {
-			logger.warn("can't parse data from url=" + url + " pat=" + pat);
+			logger.warn("can't parse data from url=" + url + " pat=" + Constants.PRICE_HISTORY_PATTERN);
 			return;
 		}
-		
 		String stockCode = matcher.group(1);
-		String year = matcher.group(2);
-		String month = matcher.group(3);
-		String day = matcher.group(4);
+		String startDate = matcher.group(2);
+		String endDate = matcher.group(3);
 		
-		Selectable quoteAreaSelectable = page.getHtml().xpath("/html/body/div[6]/div/div[2]/div[3]/div/div[1]/div[2]/table/tbody");
+		Selectable dataListSelectable = page.getHtml().xpath("//table[@id='datalist']/tbody");
+		// logger.info("dataListSelectable: " + dataListSelectable);
 		
-		String quoteAreaHtml = String.join("", quoteAreaSelectable.xpath("//tr/td").all());	
-		String quoteAreaText = String.join("", HtmlHelper.getText(quoteAreaHtml));
-		
-		String curEndPrice = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "收盘价:(\\d+\\.\\d+)", ""); // 收盘价:28.08
-		String prevEndPrice = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "前收价:(\\d+\\.\\d+)", ""); // 前收价:27.25
-		String changeRate = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "涨跌幅:(\\d+\\.\\d+%)", ""); // 涨跌幅:3.05%
-		String curBegPrice = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "开盘价:(\\d+\\.\\d+)", ""); // 开盘价:27.38
-		String curHighestPrice = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "最高价:(\\d+\\.\\d+)", ""); // 最高价:28.68
-		String curLowestPrice = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "最低价:(\\d+\\.\\d+)", ""); // 最低价:27.38
-		String curTradeHands = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "成交量\\(手\\):(\\d+\\.\\d+)", ""); // 成交量(手):555269.13
-		String curTradeAmount = RegexHelper.SimpleKVPatternMatch(quoteAreaText, "成交额\\(千元\\):(\\d+\\.\\d+)", ""); // 成交额(千元):1564138.69
-		
-		logger.info("curEndPrice: " + curEndPrice);
-		logger.info("prevEndPrice: " + prevEndPrice);
-		logger.info("changeRate: " + changeRate);
-		logger.info("curBegPrice: " + curBegPrice);
-		logger.info("curHighestPrice: " + curHighestPrice);
-		logger.info("curLowestPrice: " + curLowestPrice);
-		logger.info("curTradeHands: " + curTradeHands);
-		logger.info("curTradeAmount: " + curTradeAmount);
+		List<String> tradePrices = dataListSelectable.xpath("//tr/td[1]/text()").all(); // 成交价(元)
+		List<String> tradeAmount = dataListSelectable.xpath("//tr/td[2]/text()").all(); // 成交量(股)
+		List<String> tradePercent = dataListSelectable.xpath("//tr/td[3]/text()").all();
+		logger.info("tradePrices: " + tradePrices);
+		logger.info("tradeAmount: " + tradeAmount);
+		logger.info("tradePercent: " + tradePercent);
 	}
-
 }

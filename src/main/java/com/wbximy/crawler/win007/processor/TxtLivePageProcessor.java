@@ -1,4 +1,4 @@
-package com.wbximy.crawler.processor;
+package com.wbximy.crawler.win007.processor;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import com.wbximy.crawler.Constants;
-import com.wbximy.crawler.MatchTxtLiveIncSimulator;
 import com.wbximy.crawler.SiteSetting;
+import com.wbximy.crawler.win007.MatchTxtLiveIncSimulator;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

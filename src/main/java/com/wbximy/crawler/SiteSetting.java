@@ -12,6 +12,8 @@ public class SiteSetting {
 	static {
 		siteMap.put("nba.win007.com", Site.me().setRetryTimes(3).setSleepTime(1000).setCharset("UTF-8")
 			.addHeader("User-Agent",  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:50.0) Gecko/20100101 Firefox/50.0"));
+		siteMap.put("vip.stock.finance.sina.com.cn", Site.me().setRetryTimes(3).setSleepTime(1000).setCharset("gb2312")
+				.addHeader("User-Agent",  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:50.0) Gecko/20100101 Firefox/50.0"));
 	}
 	
 	public static Site getSite(String site) {

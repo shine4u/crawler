@@ -1,4 +1,4 @@
-package com.wbximy.crawler.processor;
+package com.wbximy.crawler.win007.processor;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

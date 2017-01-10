@@ -6,20 +6,24 @@
         id, seller_id, item_id, item_name, price, img_head, add_time, update_time, status, stock, edit_time, sold,
         is_soldout, off_shelf_time, flag, flag_bin, extend1, extend2
     </sql>
-<!--  
-boolean contains(@Param("matchId")int matchId);
-	
-	boolean add(int matchId, int matchType, Timestamp matchTime, int homeTeamId, int awayTeamId,
-			int homeTeamScore,int awayTeamScore, int homeTeamScoreHalf,int awayTeamScoreHalf,
-			double handicap, double totals);
-	-->		
-	
 
-    <select id="contains" resultType="BasketballMatchStat">
-        SELECT match_id FROM basketball_match_stat
-        <where> 
+    
+    <!-- 
+    	/* 根据matchId获取一条记录 */
+	MatchStat select(@Param("matchId")int matchId);
+	
+	/* 插入一条记录 */
+	int insert(MatchStat match);
+	-->
+	
+	<select id="select" resultType="MatchStat" >
+        SELECT <include refid="cols"/>  FROM match_stat
+        <where>
         	match_id = #{matchId}
     	</where>
     </select>
     
+    <insert id="insert" parameterType="MatchStat" >
+    	INSERT INTO match_stat(<include refid="cols"/>) VALUES(#{})
+    </insert>
 </mapper>

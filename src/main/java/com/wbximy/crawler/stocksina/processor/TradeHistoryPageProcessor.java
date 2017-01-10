@@ -33,17 +33,14 @@ public class TradeHistoryPageProcessor implements PageProcessor {
 		String url = page.getUrl().toString();
 		String html = page.getHtml().toString();
 
-		String pat = "http://vip\\.stock\\.finance\\.sina\\.com\\.cn/quotes_service/view/vMS_tradehistory\\.php\\?symbol=(\\w+)&date=(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)";
-		Matcher matcher = Pattern.compile(pat).matcher(url);
+		Matcher matcher = Pattern.compile(Constants.TRADE_HISTORY_PATTERN).matcher(url);
 		if (!matcher.find()) {
-			logger.warn("can't parse data from url=" + url + " pat=" + pat);
+			logger.warn("can't parse data from url=" + url + " pat=" + Constants.TRADE_HISTORY_PATTERN);
 			return;
 		}
 		
 		String stockCode = matcher.group(1);
-		String year = matcher.group(2);
-		String month = matcher.group(3);
-		String day = matcher.group(4);
+		String date = matcher.group(2);
 		
 		Selectable quoteAreaSelectable = page.getHtml().xpath("/html/body/div[6]/div/div[2]/div[3]/div/div[1]/div[2]/table/tbody");
 		

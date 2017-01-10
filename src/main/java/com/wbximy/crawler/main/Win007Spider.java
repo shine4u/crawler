@@ -1,4 +1,4 @@
-package com.wbximy.crawler;
+package com.wbximy.crawler.main;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -12,19 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.wbximy.crawler.mapping.MatchStatMapper;
-import com.wbximy.crawler.processor.MatchResultPageProcessor;
-import com.wbximy.crawler.processor.TechStatPageProcessor;
 import com.wbximy.crawler.tools.JSParser;
 import com.wbximy.crawler.tools.TypeConverter;
+import com.wbximy.crawler.win007.processor.MatchResultPageProcessor;
+import com.wbximy.crawler.win007.processor.TechStatPageProcessor;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-public class TestPageProcessor {
+public class Win007Spider {
 
-	Logger logger = Logger.getLogger(TestPageProcessor.class);
+	Logger logger = Logger.getLogger(Win007Spider.class);
 	
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")

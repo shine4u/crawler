@@ -1,4 +1,4 @@
-package com.wbximy.crawler;
+package com.wbximy.crawler.main;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,7 @@ public class MultiPageProcessor implements PageProcessor {
 		
 		for (Pattern pat : processorMap.keySet()) {
 			if (pat.matcher(url).find()) {
+				//logger.debug(url + " " + pat.pattern());
 				PageProcessor processor = processorMap.get(pat);
 				logger.info("process page url=" + url + " processor=" + processor.getClass());
 				processor.process(page);
