@@ -1,12 +1,18 @@
 package com.wbximy.crawler.stocksina.processor;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPath;
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
+import com.wbximy.crawler.tools.TypeConverter;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -40,20 +46,44 @@ public class StockCodeListPageProcessor implements PageProcessor {
 			return;
 		}
 		
-		Json json = page.getJson();
-		logger.debug("json=" + json);
+		// the jsonpath use by webmagic is out of date(see pom). we use fastjson.
+		String jsonStr = page.getJson().toString();
 		
-		logger.debug("test: " + json.jsonPath("$[0].items.length()"));
-		
-		int code = Integer.parseInt(json.jsonPath("[0].code").toString());
+		// https://github.com/alibaba/fastjson/wiki/JSONPath
+		Object jsonObj = JSON.parse(jsonStr);
+		int code = (Integer)JSONPath.eval(jsonObj, "$[0].code");
 		if (code != 0) {
-			logger.warn("code=" + code + "bad code. json=" + json.toString());
+			logger.warn("json code is not zeor, bad json");
 			page.setSkip(true);
 			return ;
 		}
-		int stockNum = Integer.parseInt(json.jsonPath("[0].items").toString());
-		logger.debug("stockNum=" + stockNum);
 		
+		int itemNum = (Integer)JSONPath.eval(jsonObj, "$[0].items.size()");
+		logger.debug("itemNum: " + itemNum);
+	
+		for (int itemIdx = 0; itemIdx < itemNum; ++ itemIdx) {
+			@SuppressWarnings("unchecked")
+			List<Object> stockEntity = (List<Object>) JSONPath.eval(jsonObj, "$[0].items["+itemIdx +"]");
+			String stockCode = (String) stockEntity.get(1);
+			String stockName = (String) stockEntity.get(2);
+			String curPrice = (String) stockEntity.get(3);
+			String pricechange = (String) stockEntity.get(4);
+			String changepercent = (String) stockEntity.get(5);
+			String buy = (String) stockEntity.get(6); // 当前买入价 更新达不到要求 此字段不可信
+			String sell = (String) stockEntity.get(7); // 当前卖出价 更新达不到要求 此字段不可信
+			String prevEndPrice = (String) stockEntity.get(8); // 昨收
+			String curBegPrice = (String) stockEntity.get(9); // 今开
+			String curHighestPrice = (String) stockEntity.get(10); // 今高
+			String curLowestPrice = (String) stockEntity.get(11);
+			String tradeHands = (String) stockEntity.get(12); // 成交量 手
+			String tradeAmount = (String) stockEntity.get(13); // 成交额  元
+			String ticktime = (String) stockEntity.get(14); // 最近更新时间 "11:30:00"
+			double mktcap = TypeConverter.toDouble(stockEntity.get(19)); // 总市值 亿
+			double nmc = TypeConverter.toDouble(stockEntity.get(20)); // 流通市值 亿
+			double turnoverratio = TypeConverter.toDouble(stockEntity.get(21)); // 换手率 0.02155
+			
+			logger.debug(stockCode + " " + stockName + " " + turnoverratio + " " + nmc);
+		}
 		
 	}
 

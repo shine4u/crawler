@@ -1,6 +1,7 @@
 package com.wbximy.crawler.tools;
 
 import java.util.Date;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,7 +9,10 @@ import java.text.SimpleDateFormat;
 public class TypeConverter {
 
 	public static double toDouble(Object o) {
-		if (o instanceof Double) {
+		if (o instanceof BigDecimal) {
+			return ((BigDecimal)o).doubleValue();
+
+		} else if (o instanceof Double) {
 			return (Double)o;
 		} else {
 			return Double.parseDouble(String.valueOf(o));
