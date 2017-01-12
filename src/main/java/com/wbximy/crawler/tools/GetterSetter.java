@@ -3,7 +3,7 @@ package com.wbximy.crawler.tools;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class GetterSetter<T> {
+public class GetterSetter {
 
 	/**
 	 * java反射bean的get方法
@@ -13,7 +13,7 @@ public class GetterSetter<T> {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Method getGetter(Class claz, String fieldName) {
+	public static Method getGetter(Class claz, String fieldName) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("get").append(fieldName.substring(0, 1).toUpperCase())
 				.append(fieldName.substring(1));
@@ -58,7 +58,7 @@ public class GetterSetter<T> {
 	 * @param value值
 	 */
 
-	public void invokeSetter(T t, String fieldName, Object value) {
+	public static void invokeSetter(Object t, String fieldName, Object value) {
 		Method method = getSetter(t.getClass(), fieldName);
 		try {
 			method.invoke(t, new Object[] { value });
@@ -73,7 +73,7 @@ public class GetterSetter<T> {
 	 * @param t执行对象
 	 * @param fieldName属性名
 	 */
-	public Object invokeGetter(T t, String fieldName) {
+	public static Object invokeGetter(Object t, String fieldName) {
 		Method method = getGetter(t.getClass(), fieldName);
 		try {
 			return method.invoke(t, new Object[0]);

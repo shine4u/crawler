@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.wbximy.crawler.mapping.MatchStatMapper;
+import com.wbximy.crawler.mapping.win007nba.MatchStatMapper;
 import com.wbximy.crawler.tools.JSParser;
 import com.wbximy.crawler.tools.TypeConverter;
 import com.wbximy.crawler.win007.processor.MatchResultPageProcessor;
