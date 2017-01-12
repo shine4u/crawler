@@ -23,7 +23,7 @@ public class StocksinaDAO {
 		return tableMapper.exist(tablename) > 0;
 	}
 	
-	public void addStock(Stock stock) {
+	public void writeStock(Stock stock) {
 		String tablename = Stock.class.getSimpleName();
 		if (!checkedTables.contains(tablename)) {
 			checkedTables.add(tablename);
@@ -39,7 +39,13 @@ public class StocksinaDAO {
 				tableMapper.create(sql);
 			}	
 		}
-		stockMapper.add(stock);
+		
+		if (stockMapper.selectOne(stock.getStockCode()) != null) {
+			logger.info("stock exists! " + stock);
+			return ;
+		}
+		logger.info("insert stock " + stock);
+		stockMapper.insert(stock);
 	}
 	
 }

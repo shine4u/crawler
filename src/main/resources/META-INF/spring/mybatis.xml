@@ -20,21 +20,20 @@
 		location="classpath:META-INF/spring/jdbc.properties" />
 
 	<!-- 配置数据源1 -->
-	<bean name="stocksinaDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	<bean name="stocksinaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${stocksina.driverclassname}" />
 		<property name="url" value="${stocksina.url}" />
 		<property name="username" value="${stocksina.username}" />
 		<property name="password" value="${stocksina.password}" />
-		<property name="initialSize" value="10" />
-		<property name="maxActive" value="100" />
-		<property name="maxIdle" value="100" />
+		<property name="initialSize" value="3" />
+		<property name="maxActive" value="10" />
+		<property name="maxIdle" value="10" />
 		<property name="poolPreparedStatements" value="true" />
 	</bean>
 
 	<bean id="stocksinaSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="stocksinaDataSource" />
-		<property name="typeAliasesPackage" value="com.wbximy.crawler.domain.stocksina.*" />
+		<property name="typeAliasesPackage" value="com.wbximy.crawler.domain.stocksina" />
 		<!-- 配置扫描Mapper XML的位置 -->
 		<property name="mapperLocations">
 			<list>
@@ -46,7 +45,7 @@
 	<!-- 使用MapperScannerConfiguer 扫描来实现 -->
 	<!-- 这里指定了要扫描的映射接口的路径 -->
 	<bean id="stocksinaMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.wbximy.crawler.domain.stocksina" />
+		<property name="basePackage" value="com.wbximy.crawler.mapping.stocksina" />
 		<property name="sqlSessionFactoryBeanName" value="stocksinaSqlSessionFactory" />
 	</bean>
 </beans>  

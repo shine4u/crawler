@@ -100,17 +100,11 @@ public class StockCodeListPageProcessor implements PageProcessor {
 			String ticktime = day + " " + (String)stockData.getOrDefault("ticktime", "00:00:00"); // "2017-01-11" "14:04:18"
 			stockData.put("ticktime", ticktime);
 			
-			//for (String key : stockData.keySet()) {
-			//	logger.info("stockData " + key + " " + stockData.get(key) + " " + stockData.get(key).getClass());
-			//}
-			
 			Stock stock = new Stock();
 			
 			stock.updateStock(Constants.STOCK_CODE_LIST_PATTERN, stockData);
 			
-			//logger.info("stock=" + stock);
-			
-			stocksinaDAO.addStock(stock);
+			stocksinaDAO.writeStock(stock);
 		}
 		
 	}

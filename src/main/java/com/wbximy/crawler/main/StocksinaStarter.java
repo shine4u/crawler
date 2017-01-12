@@ -38,10 +38,7 @@ public class StocksinaStarter {
 				.addProcessor(Pattern.compile(Constants.STOCK_CODE_LIST_PATTERN), stockCodeListPageProcessor)
 				;
 		Spider.create(processor)
-		//.addUrl(RegexHelper.PatternToString(Constants.TRADE_HISTORY_PATTERN, new ArrayList<String>(Arrays.asList("sz000858", "2016-03-28"))))
-		//.addUrl(RegexHelper.PatternToString(Constants.PRICE_HISTORY_PATTERN, new ArrayList<String>(Arrays.asList("sz000858", "2017-01-05", "2017-01-05"))))
 		.addUrl(RegexHelper.PatternToString(Constants.STOCK_CODE_LIST_PATTERN, new ArrayList<String>(Arrays.asList("1", "20"))))
-		//.addUrl("http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[[%22hq%22,%22hs_a%22,%22%22,0,3,40]]")
 		// 开启1个线程抓取
 		.thread(1)
 		// 启动爬虫
