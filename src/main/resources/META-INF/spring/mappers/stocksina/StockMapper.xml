@@ -4,7 +4,7 @@
 
 <!-- refer sqlite3语法 http://www.phperz.com/article/15/0123/47902.html -->
 
-	<update id="add" parameterType="com.wbximy.crawler.mapping.stocksina.Stock"> 
+	<update id="add" parameterType="com.wbximy.crawler.domain.stocksina.Stock"> 
 		INSERT INTO Stock(stockCode,stockName,curPrice,changePercent,buy,sell,prevEndPrice,curBegPrice,curHighestPrice,
 			curLowestPrice,tradeHands,tradeAmount,ticktime,per,per_d,nta,pb,mktcap,nmc,turnoverratio)
 			VALUES (#{stockCode},#{stockName},#{curPrice},#{changePercent},#{buy},#{sell},#{prevEndPrice},#{curBegPrice},#{curHighestPrice},

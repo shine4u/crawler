@@ -19,7 +19,7 @@ import us.codecraft.webmagic.selector.Selectable;
 public class TradeHistoryPageProcessor implements PageProcessor {
 	
 	Logger logger = Logger.getLogger(TradeHistoryPageProcessor.class);
-	
+		
 	@Override
 	public Site getSite() {
 		// TODO Auto-generated method stub

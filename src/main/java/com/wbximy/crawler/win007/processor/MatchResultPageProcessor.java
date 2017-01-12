@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.mapping.MatchStatMapper;
+import com.wbximy.crawler.mapping.win007nba.MatchStatMapper;
 import com.wbximy.crawler.tools.JSParser;
 import com.wbximy.crawler.tools.TypeConverter;
 

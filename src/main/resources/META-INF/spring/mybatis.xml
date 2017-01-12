@@ -16,24 +16,37 @@
     http://www.springframework.org/schema/cache   
     http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:property-placeholder
+		location="classpath:META-INF/spring/jdbc.properties" />
 
 	<!-- 配置数据源1 -->
-	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<bean name="stocksinaDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="${datasource.driverclassname}" />
-		<property name="url" value="${datasource.url}" />
-		<property name="username" value="${datasource.username}" />
-		<property name="password" value="${datasource.password}" />
+		<property name="driverClassName" value="${stocksina.driverclassname}" />
+		<property name="url" value="${stocksina.url}" />
+		<property name="username" value="${stocksina.username}" />
+		<property name="password" value="${stocksina.password}" />
 		<property name="initialSize" value="10" />
 		<property name="maxActive" value="100" />
 		<property name="maxIdle" value="100" />
 		<property name="poolPreparedStatements" value="true" />
 	</bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:mybatis.xml" />
-		<property name="mapperLocations" value="classpath:mappers/*.xml" />
+	<bean id="stocksinaSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="stocksinaDataSource" />
+		<property name="typeAliasesPackage" value="com.wbximy.crawler.domain.stocksina.*" />
+		<!-- 配置扫描Mapper XML的位置 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:META-INF/spring/mappers/stocksina/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 使用MapperScannerConfiguer 扫描来实现 -->
+	<!-- 这里指定了要扫描的映射接口的路径 -->
+	<bean id="stocksinaMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.wbximy.crawler.domain.stocksina" />
+		<property name="sqlSessionFactoryBeanName" value="stocksinaSqlSessionFactory" />
 	</bean>
 </beans>  

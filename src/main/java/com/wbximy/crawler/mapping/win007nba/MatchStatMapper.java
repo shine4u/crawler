@@ -1,10 +1,10 @@
-package com.wbximy.crawler.mapping;
+package com.wbximy.crawler.mapping.win007nba;
 
 import java.sql.Timestamp;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.wbximy.crawler.domain.MatchStat;
+import com.wbximy.crawler.domain.win007nba.MatchStat;
 
 
 public interface MatchStatMapper {

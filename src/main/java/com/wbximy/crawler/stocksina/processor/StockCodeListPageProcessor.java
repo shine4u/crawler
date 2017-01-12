@@ -1,40 +1,62 @@
 package com.wbximy.crawler.stocksina.processor;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.tools.TypeConverter;
+import com.wbximy.crawler.dao.StocksinaDAO;
+import com.wbximy.crawler.domain.stocksina.Stock;
 
+import lombok.Setter;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.selector.Json;
 
 public class StockCodeListPageProcessor implements PageProcessor {
 
 	Logger logger = Logger.getLogger(StockCodeListPageProcessor.class);
 
+	@Setter
+	private StocksinaDAO stocksinaDAO;
+	
+	private static final Map<String, String> fieldnameMappings = new HashMap<String, String>();
+	static {
+		fieldnameMappings.put("code", "stockCode");
+		fieldnameMappings.put("name", "stockName");
+		fieldnameMappings.put("trade", "curPrice");
+		fieldnameMappings.put("changepercent", "changePercent");
+		fieldnameMappings.put("settlement", "prevEndPrice");
+		fieldnameMappings.put("open", "curBegPrice");
+		fieldnameMappings.put("high", "curHighestPrice");
+		fieldnameMappings.put("low", "curLowestPrice");
+		fieldnameMappings.put("volume", "tradeHands");
+		fieldnameMappings.put("amount", "tradeAmount");
+	}
+	
+	
 	@Override
 	public Site getSite() {
 		// TODO Auto-generated method stub
 		return SiteSetting.getSite(Constants.STOCK_SINA_SITE);
 	}
 
-	
 	// http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[["hq","hs_a","",0,1,20]]
 	// 倒数第二个参数 1 表示 第一页，从1开始。
 	// 最后一个参数表示每次请求返回的stock的数目。
 	// 如果页数超过最大页，那么返回的股票数目为0
 	@Override
+	@SuppressWarnings("unchecked")
 	public void process(Page page) {
 		// TODO Auto-generated method stub
 		String url = page.getUrl().toString();
@@ -58,33 +80,38 @@ public class StockCodeListPageProcessor implements PageProcessor {
 			return ;
 		}
 		
+		String day = (String)JSONPath.eval(jsonObj, "$[0].day"); // "2017-01-11"
+		
+		List<Object> rawFields = (List<Object>) JSONPath.eval(jsonObj, "$[0].fields");
+		List<String> fields = rawFields.stream().map(x -> fieldnameMappings.getOrDefault((String)x, (String)x)).collect(Collectors.toList());
+		int fieldNum = fields.size();
+		
 		int itemNum = (Integer)JSONPath.eval(jsonObj, "$[0].items.size()");
-		logger.debug("itemNum: " + itemNum);
 	
+		logger.info("dao=" + stocksinaDAO);
+		
 		for (int itemIdx = 0; itemIdx < itemNum; ++ itemIdx) {
-			@SuppressWarnings("unchecked")
-			List<Object> stockEntity = (List<Object>) JSONPath.eval(jsonObj, "$[0].items["+itemIdx +"]");
-			String stockCode = (String) stockEntity.get(1);
-			String stockName = (String) stockEntity.get(2);
-			String curPrice = (String) stockEntity.get(3);
-			String pricechange = (String) stockEntity.get(4);
-			String changepercent = (String) stockEntity.get(5);
-			String buy = (String) stockEntity.get(6); // 当前买入价 更新达不到要求 此字段不可信
-			String sell = (String) stockEntity.get(7); // 当前卖出价 更新达不到要求 此字段不可信
-			String prevEndPrice = (String) stockEntity.get(8); // 昨收
-			String curBegPrice = (String) stockEntity.get(9); // 今开
-			String curHighestPrice = (String) stockEntity.get(10); // 今高
-			String curLowestPrice = (String) stockEntity.get(11);
-			String tradeHands = (String) stockEntity.get(12); // 成交量 手
-			String tradeAmount = (String) stockEntity.get(13); // 成交额  元
-			String ticktime = (String) stockEntity.get(14); // 最近更新时间 "11:30:00"
-			double mktcap = TypeConverter.toDouble(stockEntity.get(19)); // 总市值 亿
-			double nmc = TypeConverter.toDouble(stockEntity.get(20)); // 流通市值 亿
-			double turnoverratio = TypeConverter.toDouble(stockEntity.get(21)); // 换手率 0.02155
 			
-			logger.debug(stockCode + " " + stockName + " " + turnoverratio + " " + nmc);
+			List<Object> stockEntity = (List<Object>) JSONPath.eval(jsonObj, "$[0].items["+itemIdx +"]");
+			
+			Map<String, Object> stockData = IntStream.range(0, fieldNum).boxed().collect(Collectors.toMap(i -> fields.get(i), i -> stockEntity.get(i)));
+			
+			// add ticktime
+			String ticktime = day + " " + (String)stockData.getOrDefault("ticktime", "00:00:00"); // "2017-01-11" "14:04:18"
+			stockData.put("ticktime", ticktime);
+			
+			//for (String key : stockData.keySet()) {
+			//	logger.info("stockData " + key + " " + stockData.get(key) + " " + stockData.get(key).getClass());
+			//}
+			
+			Stock stock = new Stock();
+			
+			stock.updateStock(Constants.STOCK_CODE_LIST_PATTERN, stockData);
+			
+			//logger.info("stock=" + stock);
+			
+			stocksinaDAO.addStock(stock);
 		}
 		
 	}
-
 }

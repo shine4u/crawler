@@ -20,11 +20,14 @@
 	<import resource="shop-redis-cache.xml" />
 	-->
 	
-	<bean id="shopDAO" class="com.weidian.wdp.shop.dao.ShopDAO" >
-		<property name="shopHonorMapper" ref="shopHonorMapper" />
-		<property name="userInfoMapper" ref="userInfoMapper" />
-		<property name="userDescInfoMapper" ref="userDescInfoMapper" />
+	<import resource="mybatis.xml"/>
+	
+	<bean id="stocksinaDAO" class="com.wbximy.crawler.dao.StocksinaDAO" >
+		<property name="tableMapper" ref="tableMapper" />
+		<property name="stockMapper" ref="stockMapper" />
 	</bean>
 	
-	<import resource="mybatis.xml"/>
+	<bean id="stockcodelistPageProcessor" class="com.wbximy.crawler.stocksina.processor.StockCodeListPageProcessor">
+		<property name="stocksinaDAO" ref="stocksinaDAO"/>
+	</bean>
 </beans>
