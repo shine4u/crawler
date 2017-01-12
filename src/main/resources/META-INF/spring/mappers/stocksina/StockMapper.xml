@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbximy.crawler.mapping.stocksina.StockMapper">
+
+<!-- refer sqlite3语法 http://www.phperz.com/article/15/0123/47902.html -->
+
+	<update id="add" parameterType="com.wbximy.crawler.mapping.stocksina.Stock"> 
+		INSERT INTO Stock(stockCode,stockName,curPrice,changePercent,buy,sell,prevEndPrice,curBegPrice,curHighestPrice,
+			curLowestPrice,tradeHands,tradeAmount,ticktime,per,per_d,nta,pb,mktcap,nmc,turnoverratio)
+			VALUES (#{stockCode},#{stockName},#{curPrice},#{changePercent},#{buy},#{sell},#{prevEndPrice},#{curBegPrice},#{curHighestPrice},
+			#{curLowestPrice},#{tradeHands},#{tradeAmount},#{ticktime},#{per},#{per_d},#{nta},#{pb},#{mktcap},#{nmc},#{turnoverratio})
+	)
+	</update>
+	
+	
+	
+</mapper>
