@@ -22,7 +22,7 @@ public class PriceHistoryPageProcessor implements UrlPatPageProcessor {
 	
 	Logger logger = Logger.getLogger(PriceHistoryPageProcessor.class);
 
-	private final Pattern urlpattern = Pattern.compile(Constants.STOCK_CODE_LIST_PATTERN);
+	private final Pattern urlpattern = Pattern.compile(Constants.PRICE_HISTORY_PATTERN);
 
 	@Override
 	public Pattern getPattern() {

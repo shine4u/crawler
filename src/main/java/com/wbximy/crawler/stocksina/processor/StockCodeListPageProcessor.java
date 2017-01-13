@@ -17,6 +17,7 @@ import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
 import com.wbximy.crawler.dao.StocksinaDAO;
 import com.wbximy.crawler.domain.stocksina.Stock;
+import com.wbximy.crawler.exception.TableNotExistException;
 import com.wbximy.crawler.main.UrlPatPageProcessor;
 
 import lombok.Setter;
@@ -112,7 +113,12 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 			
 			stock.updateStock(Constants.STOCK_CODE_LIST_PATTERN, stockData);
 			
-			stocksinaDAO.writeStock(stock);
+			try {
+				stocksinaDAO.writeStock(stock);
+			} catch (TableNotExistException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

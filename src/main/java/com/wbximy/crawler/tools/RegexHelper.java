@@ -36,7 +36,7 @@ public class RegexHelper {
 		while (matcher.find()) {
 			int thisMatchStart = matcher.start();
 			int thisMatchEnd = matcher.end();
-			System.out.println("" + thisMatchStart + " " + thisMatchEnd);
+			// System.out.println("" + thisMatchStart + " " + thisMatchEnd);
 			sb.append(patternStr.subSequence(lastMatchEnd, thisMatchStart));
 			
 			if (matchCount >= matchGroups.size()) break;

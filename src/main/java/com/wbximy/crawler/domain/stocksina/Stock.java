@@ -11,34 +11,7 @@ import com.wbximy.crawler.tools.TypeConverter;
 
 import lombok.Data;
 
-@Data public class Stock {
-	
-	public final static Map<String, String> fieldRules = new HashMap<String, String>();
-	public final static String primaryKeyRule;
-	static {
-		primaryKeyRule = "stockCode";
-		
-		fieldRules.put("stockCode", "VARCHAR(10) not null");
-		fieldRules.put("stockName", "VARCHAR(100)");
-		fieldRules.put("curPrice", "DECIMAL(10, 3)");
-		fieldRules.put("changepercent", "DECIMAL(10, 3)");
-		fieldRules.put("buy", "DECIMAL(10, 3)");
-		fieldRules.put("sell", "DECIMAL(10, 3)");
-		fieldRules.put("prevEndPrice", "DECIMAL(10, 3)");
-		fieldRules.put("curBegPrice", "DECIMAL(10, 3)");
-		fieldRules.put("curHighestPrice", "DECIMAL(10, 3)");
-		fieldRules.put("curLowestPrice", "DECIMAL(10, 3)");
-		fieldRules.put("tradeHands", "BIGINT");
-		fieldRules.put("tradeAmount", "BIGINT");
-		fieldRules.put("ticktime", "DATETIME");
-		fieldRules.put("per", "REAL");
-		fieldRules.put("per_d", "REAL");
-		fieldRules.put("nta", "DECIMAL(10, 4)");
-		fieldRules.put("pb", "REAL");
-		fieldRules.put("mktcap", "REAL");
-		fieldRules.put("nmc", "REAL");
-		fieldRules.put("turnoverratio", "REAL");
-	}
+@Data public class Stock {	
 	
 	private String stockCode; // 600000 PRIMARY KEY
 	
@@ -62,6 +35,7 @@ import lombok.Data;
 	private double mktcap; // 总市值 亿
 	private double nmc; // 流通市值 亿
 	private double turnoverratio; // 换手率 0.02155
+	private String stockHolderInfo; // 流通股股东信息 例如 http://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/600000/displaytype/30.phtml
 	
 	public void updateStock(String pat, Map<String, Object> dataMap) {
 		// TODO Auto-generated method stub
