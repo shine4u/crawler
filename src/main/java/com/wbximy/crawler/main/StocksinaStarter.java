@@ -33,9 +33,9 @@ public class StocksinaStarter {
         stockCodeListPageProcessor.setStocksinaDAO(stocksinaDAO);
         
 		MultiPageProcessor processor = new MultiPageProcessor()
-				.addProcessor(Pattern.compile(Constants.PRICE_HISTORY_PATTERN), new TradeHistoryPageProcessor())
-				.addProcessor(Pattern.compile(Constants.TRADE_HISTORY_PATTERN), new PriceHistoryPageProcessor())
-				.addProcessor(Pattern.compile(Constants.STOCK_CODE_LIST_PATTERN), stockCodeListPageProcessor)
+				.addUrlPatPageProcessor(new TradeHistoryPageProcessor())
+				.addUrlPatPageProcessor(new PriceHistoryPageProcessor())
+				.addUrlPatPageProcessor(stockCodeListPageProcessor)
 				;
 		Spider.create(processor)
 		.addUrl(RegexHelper.PatternToString(Constants.STOCK_CODE_LIST_PATTERN, new ArrayList<String>(Arrays.asList("1", "20"))))

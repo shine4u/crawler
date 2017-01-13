@@ -17,8 +17,6 @@ public class SiteSetting {
 	}
 	
 	public static Site getSite(String site) {
-		// URI uri = new URI(url);
-	    // String hostname = uri.getHost();
 		return siteMap.get(site);
 	}
 }

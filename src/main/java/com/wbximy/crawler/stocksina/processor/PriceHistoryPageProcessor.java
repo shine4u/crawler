@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
+import com.wbximy.crawler.main.UrlPatPageProcessor;
 import com.wbximy.crawler.tools.HtmlHelper;
 import com.wbximy.crawler.tools.RegexHelper;
 
@@ -17,9 +18,18 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
-public class PriceHistoryPageProcessor implements PageProcessor {
+public class PriceHistoryPageProcessor implements UrlPatPageProcessor {
 	
 	Logger logger = Logger.getLogger(PriceHistoryPageProcessor.class);
+
+	private final Pattern urlpattern = Pattern.compile(Constants.STOCK_CODE_LIST_PATTERN);
+
+	@Override
+	public Pattern getPattern() {
+		// TODO Auto-generated method stub
+		return urlpattern;
+	}
+	
 	
 	@Override
 	public Site getSite() {
@@ -34,7 +44,7 @@ public class PriceHistoryPageProcessor implements PageProcessor {
 		String url = page.getUrl().toString();
 		String html = page.getHtml().toString();
 
-		Matcher matcher = Pattern.compile(Constants.PRICE_HISTORY_PATTERN).matcher(url);
+		Matcher matcher = getPattern().matcher(url);
 		if (!matcher.find()) {
 			logger.warn("can't parse data from url=" + url + " pat=" + Constants.PRICE_HISTORY_PATTERN);
 			return;
@@ -53,4 +63,5 @@ public class PriceHistoryPageProcessor implements PageProcessor {
 		logger.info("tradeAmount: " + tradeAmount);
 		logger.info("tradePercent: " + tradePercent);
 	}
+
 }

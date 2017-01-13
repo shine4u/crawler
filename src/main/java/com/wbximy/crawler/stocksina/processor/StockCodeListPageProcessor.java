@@ -17,13 +17,14 @@ import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
 import com.wbximy.crawler.dao.StocksinaDAO;
 import com.wbximy.crawler.domain.stocksina.Stock;
+import com.wbximy.crawler.main.UrlPatPageProcessor;
 
 import lombok.Setter;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-public class StockCodeListPageProcessor implements PageProcessor {
+public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 
 	Logger logger = Logger.getLogger(StockCodeListPageProcessor.class);
 
@@ -44,6 +45,13 @@ public class StockCodeListPageProcessor implements PageProcessor {
 		fieldnameMappings.put("amount", "tradeAmount");
 	}
 	
+	private final Pattern urlpattern = Pattern.compile(Constants.STOCK_CODE_LIST_PATTERN);
+	
+	@Override
+	public Pattern getPattern() {
+		// TODO Auto-generated method stub
+		return urlpattern;
+	}
 	
 	@Override
 	public Site getSite() {
@@ -62,7 +70,7 @@ public class StockCodeListPageProcessor implements PageProcessor {
 		String url = page.getUrl().toString();
 		String html = page.getHtml().toString();
 
-		Matcher matcher = Pattern.compile(Constants.STOCK_CODE_LIST_PATTERN).matcher(url);
+		Matcher matcher = getPattern().matcher(url);
 		if (!matcher.find()) {
 			logger.warn("can't parse data from url=" + url + " pat=" + Constants.STOCK_CODE_LIST_PATTERN);
 			return;
@@ -108,4 +116,5 @@ public class StockCodeListPageProcessor implements PageProcessor {
 		}
 		
 	}
+
 }
