@@ -27,7 +27,4 @@
 		<property name="stockMapper" ref="stockMapper" />
 	</bean>
 	
-	<bean id="stockcodelistPageProcessor" class="com.wbximy.crawler.stocksina.processor.StockCodeListPageProcessor">
-		<property name="stocksinaDAO" ref="stocksinaDAO"/>
-	</bean>
 </beans>

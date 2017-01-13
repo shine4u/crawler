@@ -42,11 +42,10 @@ public class PriceHistoryPageProcessor implements UrlPatPageProcessor {
 	public void process(Page page) {
 		// TODO Auto-generated method stub
 		String url = page.getUrl().toString();
-		String html = page.getHtml().toString();
-
+		
 		Matcher matcher = getPattern().matcher(url);
 		if (!matcher.find()) {
-			logger.warn("can't parse data from url=" + url + " pat=" + Constants.PRICE_HISTORY_PATTERN);
+			logger.warn("can't parse data from url=" + url + " pat=" + getPattern().pattern());
 			return;
 		}
 		String stockCode = matcher.group(1);

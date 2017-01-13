@@ -22,16 +22,24 @@ public class TypeConverter {
 	
 	
 	// http://stackoverflow.com/questions/18915075/java-convert-string-to-timestamp
-	public static Timestamp toTimestamp(String s, String format) throws ParseException {
+	public static Timestamp toTimestamp(String s, String format) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-		Date parsedDate = dateFormat.parse(s);
+		Date parsedDate = null;
+		try {
+			parsedDate = dateFormat.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Timestamp timestamp = new Timestamp(parsedDate.getTime());
 		return timestamp;
 	}
 	
 	public static void cvt(Object o, Field field, Object value) {
 		try {
-			if (String.class.isAssignableFrom(field.getType())) { // string
+			if (field.getType().isAssignableFrom(value.getClass())) { // string
+				GetterSetter.invokeSetter(o, field.getName(), value);
+			} else if (String.class.isAssignableFrom(field.getType())) { // string
 				GetterSetter.invokeSetter(o, field.getName(), value.toString());
 			} else if (field.getType() == int.class) { // int
 				if (value instanceof Integer || value instanceof Long) {
@@ -63,10 +71,10 @@ public class TypeConverter {
 				} 
 			} else  if (Timestamp.class.isAssignableFrom(field.getType())) { // Timestamp
 				if (value instanceof String) {
-						GetterSetter.invokeSetter(o, field.getName(), toTimestamp((String)value, "YYYY-mm-dd HH:MM:SS"));
+						GetterSetter.invokeSetter(o, field.getName(), toTimestamp((String)value, "yyyy-MM-dd HH:mm:ss"));
 				} 
 			}
-		} catch (IllegalArgumentException | ParseException e) {
+		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	

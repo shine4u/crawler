@@ -17,5 +17,10 @@ public class Constants {
 	// " -> %22
 	// http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[["hq","hs_a","",0,3,40]]
 	public static final String STOCK_CODE_LIST_PATTERN = "http://money\\.finance\\.sina\\.com\\.cn/d/api/openapi_proxy\\.php/\\?__s=\\[\\[%22hq%22,%22hs_a%22,%22%22,0,(\\d+),(\\d+)\\]\\]";
+	
+	// http://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/600000/displaytype/30.phtml
+	// 最后的30 是和日期相关的数字，暂时定位常量即可
+	public static final String CIRCULATE_STOCK_HOLDER_PATTERN = "http://vip\\.stock\\.finance\\.sina\\.com\\.cn/corp/go\\.php/vCI_CirculateStockHolder/stockid/(\\d+)/displaytype/30\\.phtml";
+	
 }
 

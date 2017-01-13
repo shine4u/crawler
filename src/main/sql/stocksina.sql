@@ -28,8 +28,9 @@ CREATE TABLE Stock(
 
 SELECT stockCode, curPrice FROM Stock;
 
-ALTER TABLE Stock ADD  stockHolderInfo VARCHAR(10241024);  -- 1MB
 
-SELECT stockCode, curPrice, stockHolderInfo FROM Stock;
+-- ALTER TABLE Stock ADD  stockHolderInfo VARCHAR(10241024);  -- 1MB 另外表存储。
+
+-- SELECT stockCode, curPrice, stockHolderInfo FROM Stock;
 
 -- sqlite3 常用语句 http://www.cnblogs.com/zibuyu/p/3564408.html

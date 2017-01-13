@@ -15,4 +15,10 @@
 	<select id="selectOne" resultType="Stock">
 		SELECT * FROM Stock where stockCode = #{stockCode}
 	</select>
+	
+	<!-- void updateStockHolder(Stock stock) -->
+	<update id="updateStockHolder" parameterType="Stock"> 
+		UPDATE Stock SET holderInfo = #{holderInfo} WHERE stockCode = #{stockCode}
+	</update>
+	
 </mapper>

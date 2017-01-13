@@ -32,8 +32,8 @@ public class MultiPageProcessor implements PageProcessor {
 		String url = page.getUrl().toString();
 		
 		for (UrlPatPageProcessor processor : processors) {
+			//logger.info(url + " " + processor.getPattern().pattern());
 			if (processor.getPattern().matcher(url).find()) {
-				//logger.debug(url + " " + pat.pattern());
 				logger.info("process page url=" + url + " processor=" + processor.getClass());
 				processor.process(page);
 				processCount += 1;

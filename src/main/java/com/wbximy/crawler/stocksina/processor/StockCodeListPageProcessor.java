@@ -1,6 +1,9 @@
 package com.wbximy.crawler.stocksina.processor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -9,28 +12,22 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONPath;
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.dao.StocksinaDAO;
 import com.wbximy.crawler.domain.stocksina.Stock;
-import com.wbximy.crawler.exception.TableNotExistException;
 import com.wbximy.crawler.main.UrlPatPageProcessor;
+import com.wbximy.crawler.tools.RegexHelper;
 
-import lombok.Setter;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.processor.PageProcessor;
 
 public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 
 	Logger logger = Logger.getLogger(StockCodeListPageProcessor.class);
 
-	@Setter
-	private StocksinaDAO stocksinaDAO;
 	
 	private static final Map<String, String> fieldnameMappings = new HashMap<String, String>();
 	static {
@@ -69,13 +66,15 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 	public void process(Page page) {
 		// TODO Auto-generated method stub
 		String url = page.getUrl().toString();
-		String html = page.getHtml().toString();
 
 		Matcher matcher = getPattern().matcher(url);
 		if (!matcher.find()) {
-			logger.warn("can't parse data from url=" + url + " pat=" + Constants.STOCK_CODE_LIST_PATTERN);
+			logger.warn("can't parse data from url=" + url + " pat=" + getPattern().pattern());
 			return;
 		}
+		
+		int pageId = Integer.parseInt(matcher.group(1));
+		int pageStockNum = Integer.parseInt(matcher.group(2));
 		
 		// the jsonpath use by webmagic is out of date(see pom). we use fastjson.
 		String jsonStr = page.getJson().toString();
@@ -96,8 +95,8 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 		int fieldNum = fields.size();
 		
 		int itemNum = (Integer)JSONPath.eval(jsonObj, "$[0].items.size()");
-	
-		logger.info("dao=" + stocksinaDAO);
+			
+		List<Stock> stocks = new LinkedList<Stock>();
 		
 		for (int itemIdx = 0; itemIdx < itemNum; ++ itemIdx) {
 			
@@ -109,18 +108,19 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 			String ticktime = day + " " + (String)stockData.getOrDefault("ticktime", "00:00:00"); // "2017-01-11" "14:04:18"
 			stockData.put("ticktime", ticktime);
 			
-			Stock stock = new Stock();
-			
-			stock.updateStock(Constants.STOCK_CODE_LIST_PATTERN, stockData);
-			
-			try {
-				stocksinaDAO.writeStock(stock);
-			} catch (TableNotExistException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			stocks.add((Stock) new Stock().updateField(stockData));				
 		}
+		page.getResultItems().put("stocks", stocks);
 		
+		// 判断是否抓下一页
+		// int pageId = Integer.parseInt(matcher.group(1));
+		// int pageStockNum = Integer.parseInt(matcher.group(2));
+		if (stocks.size() < pageStockNum) {
+			// 最后一页
+		} else {
+			String nextPageUrl = RegexHelper.PatternToString(getPattern().pattern(), new ArrayList<String>(Arrays.asList(Integer.valueOf(pageId+1).toString(), Integer.valueOf(pageStockNum).toString())));
+			page.addTargetRequest(nextPageUrl);
+		}
 	}
 
 }

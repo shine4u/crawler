@@ -7,4 +7,5 @@ import com.wbximy.crawler.domain.stocksina.Stock;
 public interface StockMapper {
 	void insert(Stock stock);
 	Stock selectOne(@Param("stockCode")String stockCode);
+	int updateStockHolder(Stock stock);
 }

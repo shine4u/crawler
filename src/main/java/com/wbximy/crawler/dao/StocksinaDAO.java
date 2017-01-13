@@ -24,8 +24,7 @@ public class StocksinaDAO {
 		return tableMapper.exist(tablename) > 0;
 	}
 	
-	public void writeStock(Stock stock) throws TableNotExistException {
-		String tablename = Stock.class.getSimpleName();
+	private void checkTableExist(String tablename) {
 		if (!checkedTables.contains(tablename)) {
 			checkedTables.add(tablename);
 			logger.info("checked for table creation tablename=" + tablename);
@@ -41,16 +40,37 @@ public class StocksinaDAO {
 				logger.info("create table sql=" + sql);
 				tableMapper.create(sql);
 				*/
-				throw new TableNotExistException(tablename);
+				try {
+					throw new TableNotExistException(tablename);
+				} catch (TableNotExistException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}	
 		}
 		
+	}
+	
+	public void writeStock(Stock stock) throws TableNotExistException {
+		checkTableExist(Stock.class.getSimpleName());
+		
 		if (stockMapper.selectOne(stock.getStockCode()) != null) {
-			logger.info("write stock but exists, ignore." + stock.getStockCode());
+			logger.info("write stock but exists, ignore." + stock);
 			return ;
 		}
 		logger.info("insert stock " + stock);
 		stockMapper.insert(stock);
+	}
+
+	public void writeStockHolderInfo(Stock stock) {
+		// TODO Auto-generated method stub
+		checkTableExist(Stock.class.getSimpleName());
+		if (stockMapper.selectOne(stock.getStockCode()) == null) {
+			logger.info("update stock but not exists, ignore." + stock.getStockCode());
+			return ;
+		}
+		logger.info("update stock " + stock);
+		stockMapper.updateStockHolder(stock);
 	}
 	
 }

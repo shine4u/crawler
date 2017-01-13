@@ -57,4 +57,8 @@ public class HtmlHelper {
 		}
 		return texts;
 	}
+	
+	public static String removeBlanks(String html) {
+		return html.replaceAll("\\s+", "");
+	}
 }

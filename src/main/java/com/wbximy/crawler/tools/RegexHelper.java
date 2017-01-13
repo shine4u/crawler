@@ -23,7 +23,7 @@ public class RegexHelper {
 	// for example: (\d)abc(\w) ["23", "ww"] -> 23abcww
 	// notice nest () cannnot work.
 	// no check matching for string in ().
-	public static String PatternToString(String patternStr, List<String>matchGroups) throws ListSizeException {
+	public static String PatternToString(String patternStr, List<String>matchGroups) {
 		
 		System.out.println("patternStr: " + patternStr);
 		
@@ -49,7 +49,12 @@ public class RegexHelper {
 		
 		if (matchCount > matchGroups.size()) {
 			String message = "matchGroups=" + matchGroups + " patternStr=" + patternStr + " size not match.";
-			throw new ListSizeException(message);
+			try {
+				throw new ListSizeException(message);
+			} catch (ListSizeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		// regex addtional \ remove.

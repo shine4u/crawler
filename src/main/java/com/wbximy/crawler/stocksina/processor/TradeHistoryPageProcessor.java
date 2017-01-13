@@ -44,7 +44,7 @@ public class TradeHistoryPageProcessor implements UrlPatPageProcessor {
 
 		Matcher matcher = getPattern().matcher(url);
 		if (!matcher.find()) {
-			logger.warn("can't parse data from url=" + url + " pat=" + Constants.TRADE_HISTORY_PATTERN);
+			logger.warn("can't parse data from url=" + url + " pat=" + getPattern().pattern());
 			return;
 		}
 		
