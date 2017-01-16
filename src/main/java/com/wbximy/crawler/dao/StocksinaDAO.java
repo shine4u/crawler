@@ -6,7 +6,9 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.wbximy.crawler.domain.stocksina.Stock;
+import com.wbximy.crawler.domain.stocksina.StockHolder;
 import com.wbximy.crawler.exception.TableNotExistException;
+import com.wbximy.crawler.mapping.stocksina.StockHolderMapper;
 import com.wbximy.crawler.mapping.stocksina.StockMapper;
 import com.wbximy.crawler.mapping.stocksina.TableMapper;
 
@@ -17,6 +19,7 @@ public class StocksinaDAO {
 
 	@Setter private TableMapper tableMapper;
 	@Setter private StockMapper stockMapper;
+	@Setter private StockHolderMapper stockHolderMapper;
 	
 	private static Set<String> checkedTables = new HashSet<String>();
 	
@@ -62,15 +65,15 @@ public class StocksinaDAO {
 		stockMapper.insert(stock);
 	}
 
-	public void writeStockHolderInfo(Stock stock) {
+	public void writeStockHolder(StockHolder holder) {
 		// TODO Auto-generated method stub
-		checkTableExist(Stock.class.getSimpleName());
-		if (stockMapper.selectOne(stock.getStockCode()) == null) {
-			logger.info("update stock but not exists, ignore." + stock.getStockCode());
+		checkTableExist(StockHolder.class.getSimpleName());
+		if (stockHolderMapper.selectOne(holder.getStockCode(), holder.getHolderName()) 	!= null) {
+			logger.info("write stockHolder but exists, ignore." + holder.getStockCode() + " " + holder.getHolderName());
 			return ;
 		}
-		logger.info("update stock " + stock);
-		stockMapper.updateStockHolder(stock);
+		logger.info("insert stockHolder " + holder);
+		stockHolderMapper.insert(holder);
 	}
 	
 }

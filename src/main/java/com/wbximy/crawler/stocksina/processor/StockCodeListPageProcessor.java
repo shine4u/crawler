@@ -113,13 +113,12 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 		page.getResultItems().put("stocks", stocks);
 		
 		// 判断是否抓下一页
-		// int pageId = Integer.parseInt(matcher.group(1));
-		// int pageStockNum = Integer.parseInt(matcher.group(2));
 		if (stocks.size() < pageStockNum) {
 			// 最后一页
 		} else {
 			String nextPageUrl = RegexHelper.PatternToString(getPattern().pattern(), new ArrayList<String>(Arrays.asList(Integer.valueOf(pageId+1).toString(), Integer.valueOf(pageStockNum).toString())));
-			page.addTargetRequest(nextPageUrl);
+			// 测试的时候
+			//page.addTargetRequest(nextPageUrl);
 		}
 	}
 

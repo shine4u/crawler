@@ -12,8 +12,7 @@ import com.wbximy.crawler.tools.TypeConverter;
 
 import lombok.Data;
 
-@Data
-public class Stock extends AutoFieldUpdateDomain {
+@Data public class Stock {
 
 	private String stockCode; // 600000 PRIMARY KEY
 

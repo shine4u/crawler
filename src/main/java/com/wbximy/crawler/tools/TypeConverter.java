@@ -35,7 +35,7 @@ public class TypeConverter {
 		return timestamp;
 	}
 	
-	public static void cvt(Object o, Field field, Object value) {
+	public static <T> void cvt(T o, Field field, Object value) {
 		try {
 			if (field.getType().isAssignableFrom(value.getClass())) { // string
 				GetterSetter.invokeSetter(o, field.getName(), value);

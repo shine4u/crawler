@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.wbximy.crawler.dao.StocksinaDAO;
 import com.wbximy.crawler.domain.stocksina.Stock;
+import com.wbximy.crawler.domain.stocksina.StockHolder;
 import com.wbximy.crawler.exception.TableNotExistException;
 
 import lombok.Setter;
@@ -30,9 +31,9 @@ public class StocksinaPipeline implements Pipeline {
 			}
 		}
 		
-		Stock stockWithHolderInfo = resultItems.get("stockholderInfo");
-		if (stockWithHolderInfo != null) {
-			stocksinaDAO.writeStockHolderInfo(stockWithHolderInfo);
+		List<StockHolder> holders = resultItems.get("stockHolders");		
+		for (StockHolder holder : holders == null ? new LinkedList<StockHolder>() : holders) {
+			stocksinaDAO.writeStockHolder(holder);
 		}
 	}
 }

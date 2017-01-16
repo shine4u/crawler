@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wbximy.crawler.mapping.stocksina.StockHolderMapper">
+
+<!-- refer sqlite3语法 http://www.phperz.com/article/15/0123/47902.html -->
+
+	<update id="insert" parameterType="StockHolder"> 
+		INSERT INTO StockHolder(stockCode,infoDate,holderPos,holderName,stockNum,stockPercent,stockType)
+			VALUES (#{stockCode},#{infoDate},#{holderPos},#{holderName},#{stockNum},#{stockPercent},#{stockType}
+		)
+	</update>
+	
+	<select id="selectOne" resultType="StockHolder">
+		SELECT * FROM StockHolder where stockCode = #{stockCode} and holderName = #{holderName}
+	</select>
+	
+	
+</mapper>

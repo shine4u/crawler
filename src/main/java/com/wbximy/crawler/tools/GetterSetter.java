@@ -2,8 +2,12 @@ package com.wbximy.crawler.tools;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 public class GetterSetter {
+	static Logger logger = Logger.getLogger(GetterSetter.class);
 
 	/**
 	 * java反射bean的get方法
@@ -58,7 +62,8 @@ public class GetterSetter {
 	 * @param value值
 	 */
 
-	public static void invokeSetter(Object t, String fieldName, Object value) {
+	public static <T> void invokeSetter(T t, String fieldName, Object value) {
+		// logger.info(t);
 		Method method = getSetter(t.getClass(), fieldName);
 		try {
 			method.invoke(t, new Object[] { value });
@@ -73,7 +78,7 @@ public class GetterSetter {
 	 * @param t执行对象
 	 * @param fieldName属性名
 	 */
-	public static Object invokeGetter(Object t, String fieldName) {
+	public static <T> Object invokeGetter(T t, String fieldName) {
 		Method method = getGetter(t.getClass(), fieldName);
 		try {
 			return method.invoke(t, new Object[0]);
@@ -81,6 +86,29 @@ public class GetterSetter {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static <T> T updateField(T obj, String key, Object value) {
+		Field[] fields = obj.getClass().getDeclaredFields();
+		
+		for (Field field : fields) {
+			String fieldname = field.getName();
+			if (!fieldname.equals(key)) continue;
+			TypeConverter.cvt(obj, field, value);
+		}
+		return obj;
+	}
+	
+	public static <T> T updateField(T obj, Map<String, Object> dataMap) {
+		Field[] fields = obj.getClass().getDeclaredFields();
+
+		for (Field field : fields) {
+			String fieldname = field.getName();
+			if (!dataMap.containsKey(fieldname))
+				continue;
+			TypeConverter.cvt(obj, field, dataMap.get(fieldname));
+		}
+		return obj;
 	}
 
 }

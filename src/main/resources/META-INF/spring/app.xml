@@ -25,6 +25,7 @@
 	<bean id="stocksinaDAO" class="com.wbximy.crawler.dao.StocksinaDAO" >
 		<property name="tableMapper" ref="tableMapper" />
 		<property name="stockMapper" ref="stockMapper" />
+		<property name="stockHolderMapper" ref="stockHolderMapper" />
 	</bean>
 	
 </beans>
