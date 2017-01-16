@@ -10,10 +10,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.dao.StocksinaDAO;
 import com.wbximy.crawler.exception.ListSizeException;
-import com.wbximy.crawler.processor.stocksina.CirculateStockHolderPageProcessor;
-import com.wbximy.crawler.processor.stocksina.PriceHistoryPageProcessor;
-import com.wbximy.crawler.processor.stocksina.StockCodeListPageProcessor;
-import com.wbximy.crawler.processor.stocksina.TradeHistoryPageProcessor;
+import com.wbximy.crawler.stocksina.processor.CirculateStockHolderPageProcessor;
+import com.wbximy.crawler.stocksina.processor.PriceHistoryPageProcessor;
+import com.wbximy.crawler.stocksina.processor.StockCodeListPageProcessor;
+import com.wbximy.crawler.stocksina.processor.TradeHistoryPageProcessor;
 import com.wbximy.crawler.tools.RegexHelper;
 
 import us.codecraft.webmagic.Spider;

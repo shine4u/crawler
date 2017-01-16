@@ -5,12 +5,12 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import com.wbximy.crawler.domain.stocksina.Stock;
-import com.wbximy.crawler.domain.stocksina.StockHolder;
 import com.wbximy.crawler.exception.TableNotExistException;
-import com.wbximy.crawler.mapping.stocksina.StockHolderMapper;
-import com.wbximy.crawler.mapping.stocksina.StockMapper;
-import com.wbximy.crawler.mapping.stocksina.TableMapper;
+import com.wbximy.crawler.stocksina.domain.Stock;
+import com.wbximy.crawler.stocksina.domain.StockHolder;
+import com.wbximy.crawler.stocksina.mapping.StockHolderMapper;
+import com.wbximy.crawler.stocksina.mapping.StockMapper;
+import com.wbximy.crawler.stocksina.mapping.TableMapper;
 
 import lombok.Setter;
 

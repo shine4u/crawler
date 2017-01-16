@@ -1,8 +1,8 @@
-package com.wbximy.crawler.mapping.stocksina;
+package com.wbximy.crawler.stocksina.mapping;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.wbximy.crawler.domain.stocksina.Stock;
+import com.wbximy.crawler.stocksina.domain.Stock;
 
 public interface StockMapper {
 	void insert(Stock stock);

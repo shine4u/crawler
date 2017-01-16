@@ -1,4 +1,4 @@
-package com.wbximy.crawler.mapping.stocksina;
+package com.wbximy.crawler.stocksina.mapping;
 
 import java.util.List;
 import java.util.Map;

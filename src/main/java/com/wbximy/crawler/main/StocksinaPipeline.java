@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.wbximy.crawler.dao.StocksinaDAO;
-import com.wbximy.crawler.domain.stocksina.Stock;
-import com.wbximy.crawler.domain.stocksina.StockHolder;
 import com.wbximy.crawler.exception.TableNotExistException;
+import com.wbximy.crawler.stocksina.domain.Stock;
+import com.wbximy.crawler.stocksina.domain.StockHolder;
 
 import lombok.Setter;
 import us.codecraft.webmagic.ResultItems;

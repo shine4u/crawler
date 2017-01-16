@@ -1,4 +1,4 @@
-package com.wbximy.crawler.processor.stocksina;
+package com.wbximy.crawler.stocksina.processor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +17,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONPath;
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.domain.stocksina.Stock;
 import com.wbximy.crawler.main.UrlPatPageProcessor;
+import com.wbximy.crawler.stocksina.domain.Stock;
 import com.wbximy.crawler.tools.GetterSetter;
 import com.wbximy.crawler.tools.RegexHelper;
 

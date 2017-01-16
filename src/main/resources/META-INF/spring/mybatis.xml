@@ -33,7 +33,7 @@
 
 	<bean id="stocksinaSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="stocksinaDataSource" />
-		<property name="typeAliasesPackage" value="com.wbximy.crawler.domain.stocksina" />
+		<property name="typeAliasesPackage" value="com.wbximy.crawler.stocksina.domain" />
 		<!-- 配置扫描Mapper XML的位置 -->
 		<property name="mapperLocations">
 			<list>
@@ -45,7 +45,7 @@
 	<!-- 使用MapperScannerConfiguer 扫描来实现 -->
 	<!-- 这里指定了要扫描的映射接口的路径 -->
 	<bean id="stocksinaMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.wbximy.crawler.mapping.stocksina" />
+		<property name="basePackage" value="com.wbximy.crawler.stocksina.mapping" />
 		<property name="sqlSessionFactoryBeanName" value="stocksinaSqlSessionFactory" />
 	</bean>
 </beans>  

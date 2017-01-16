@@ -1,4 +1,4 @@
-package com.wbximy.crawler.processor.stocksina;
+package com.wbximy.crawler.stocksina.processor;
 
 import java.util.List;
 import java.util.regex.Matcher;

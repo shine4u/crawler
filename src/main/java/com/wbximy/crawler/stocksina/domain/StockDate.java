@@ -1,4 +1,4 @@
-package com.wbximy.crawler.domain.stocksina;
+package com.wbximy.crawler.stocksina.domain;
 
 import java.sql.Date;
 

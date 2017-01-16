@@ -1,4 +1,4 @@
-package com.wbximy.crawler.processor.stocksina;
+package com.wbximy.crawler.stocksina.processor;
 
 import java.sql.Timestamp;
 import java.util.LinkedList;
@@ -10,8 +10,8 @@ import org.apache.log4j.Logger;
 
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.domain.stocksina.StockHolder;
 import com.wbximy.crawler.main.UrlPatPageProcessor;
+import com.wbximy.crawler.stocksina.domain.StockHolder;
 import com.wbximy.crawler.tools.GetterSetter;
 import com.wbximy.crawler.tools.HtmlHelper;
 import com.wbximy.crawler.tools.TypeConverter;
