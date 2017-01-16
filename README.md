@@ -1,4 +1,4 @@
-# crawler
+# stocksina-crawler
 抓取股票数据，目前抓取新浪站点的
 
 股票列表以及最新指标 http://money.finance.sina.com.cn/d/api/openapi_proxy.php/?__s=[["hq","hs_a","",0,3,40]] 
