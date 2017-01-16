@@ -1,13 +1,9 @@
 package com.wbximy.crawler.domain.stocksina;
 
 import java.lang.reflect.Field;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.tools.TypeConverter;
 
 import lombok.Data;
@@ -37,18 +33,4 @@ import lombok.Data;
 	private double nmc; // 流通市值 亿
 	private double turnoverratio; // 换手率 0.02155	
 	
-	public Stock updateField(Map<String, Object> dataMap) {
-		// TODO Auto-generated method stub
-
-		Field[] fields = this.getClass().getDeclaredFields();
-
-		for (Field field : fields) {
-			String fieldname = field.getName();
-			if (!dataMap.containsKey(fieldname))
-				continue;
-			TypeConverter.cvt(this, field, dataMap.get(fieldname));
-		}
-
-		return this;
-	}
 }

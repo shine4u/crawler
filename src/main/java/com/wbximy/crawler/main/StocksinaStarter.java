@@ -41,8 +41,8 @@ public class StocksinaStarter {
 				;
 		Spider.create(processor)
 		.addPipeline(stocksinaPipeline)
-		.addUrl(RegexHelper.PatternToString(Constants.STOCK_CODE_LIST_PATTERN, new ArrayList<String>(Arrays.asList("1", "20"))))
-		.addUrl(RegexHelper.PatternToString(Constants.CIRCULATE_STOCK_HOLDER_PATTERN, new ArrayList<String>(Arrays.asList("600000"))))
+		//.addUrl(RegexHelper.PatternToString(Constants.STOCK_CODE_LIST_PATTERN, new ArrayList<String>(Arrays.asList("1", "20"))))
+		.addUrl(RegexHelper.PatternToString(Constants.CIRCULATE_STOCK_HOLDER_PATTERN, new ArrayList<String>(Arrays.asList("002299"))))
 		// 开启1个线程抓取
 		.thread(1)
 		// 启动爬虫

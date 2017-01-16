@@ -1,24 +1,15 @@
 package com.wbximy.crawler.stocksina.processor;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.apache.log4j.Logger;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONPath;
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.domain.stocksina.Stock;
 import com.wbximy.crawler.domain.stocksina.StockHolder;
 import com.wbximy.crawler.main.UrlPatPageProcessor;
 import com.wbximy.crawler.tools.GetterSetter;

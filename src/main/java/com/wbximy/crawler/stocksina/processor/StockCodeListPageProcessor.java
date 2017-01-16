@@ -19,6 +19,7 @@ import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
 import com.wbximy.crawler.domain.stocksina.Stock;
 import com.wbximy.crawler.main.UrlPatPageProcessor;
+import com.wbximy.crawler.tools.GetterSetter;
 import com.wbximy.crawler.tools.RegexHelper;
 
 import us.codecraft.webmagic.Page;
@@ -108,7 +109,7 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 			String ticktime = day + " " + (String)stockData.getOrDefault("ticktime", "00:00:00"); // "2017-01-11" "14:04:18"
 			stockData.put("ticktime", ticktime);
 			
-			stocks.add((Stock) new Stock().updateField(stockData));				
+			stocks.add(GetterSetter.updateField(new Stock(), stockData));				
 		}
 		page.getResultItems().put("stocks", stocks);
 		
@@ -116,7 +117,8 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 		if (stocks.size() < pageStockNum) {
 			// 最后一页
 		} else {
-			String nextPageUrl = RegexHelper.PatternToString(getPattern().pattern(), new ArrayList<String>(Arrays.asList(Integer.valueOf(pageId+1).toString(), Integer.valueOf(pageStockNum).toString())));
+			String nextPageUrl = RegexHelper.PatternToString(getPattern().pattern(), new ArrayList<String>(
+					Arrays.asList(Integer.valueOf(pageId+1).toString(), Integer.valueOf(pageStockNum).toString())));
 			// 测试的时候
 			//page.addTargetRequest(nextPageUrl);
 		}
