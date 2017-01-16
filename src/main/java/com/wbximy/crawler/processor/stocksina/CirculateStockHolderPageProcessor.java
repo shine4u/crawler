@@ -1,4 +1,4 @@
-package com.wbximy.crawler.stocksina.processor;
+package com.wbximy.crawler.processor.stocksina;
 
 import java.sql.Timestamp;
 import java.util.LinkedList;

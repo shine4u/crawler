@@ -37,7 +37,7 @@
 		<!-- 配置扫描Mapper XML的位置 -->
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:META-INF/spring/mappers/stocksina/*.xml</value>
+				<value>classpath:META-INF/spring/mappers/*.xml</value>
 			</list>
 		</property>
 	</bean>

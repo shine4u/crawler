@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wbximy.crawler.Constants;
 import com.wbximy.crawler.SiteSetting;
-import com.wbximy.crawler.mapping.win007nba.MatchStatMapper;
 import com.wbximy.crawler.tools.JSParser;
 import com.wbximy.crawler.tools.TypeConverter;
 
@@ -30,7 +29,7 @@ public class MatchResultPageProcessor implements PageProcessor {
 	private static final int maxMatchNum = 2; // 用于测试， -1表示不限制 
 	
 	@Autowired
-	private MatchStatMapper basketballMatchStatMapper;
+	//private MatchStatMapper basketballMatchStatMapper;
 
 	@Override
 	public Site getSite() {

@@ -1,4 +1,4 @@
-package com.wbximy.crawler.domain.win007nba;
+package com.wbximy.crawler.unused.domain.win007nba;
 
 import java.sql.Timestamp;
 
