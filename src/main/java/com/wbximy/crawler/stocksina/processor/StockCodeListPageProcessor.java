@@ -65,7 +65,6 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void process(Page page) {
-		// TODO Auto-generated method stub
 		String url = page.getUrl().toString();
 
 		Matcher matcher = getPattern().matcher(url);
@@ -120,7 +119,7 @@ public class StockCodeListPageProcessor implements UrlPatPageProcessor {
 			String nextPageUrl = RegexHelper.PatternToString(getPattern().pattern(), new ArrayList<String>(
 					Arrays.asList(Integer.valueOf(pageId+1).toString(), Integer.valueOf(pageStockNum).toString())));
 			// 测试的时候
-			//page.addTargetRequest(nextPageUrl);
+			page.addTargetRequest(nextPageUrl);
 		}
 	}
 

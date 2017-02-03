@@ -1,10 +1,6 @@
 package com.wbximy.crawler.stocksina.domain;
 
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.Map;
-
-import com.wbximy.crawler.tools.TypeConverter;
 
 import lombok.Data;
 
