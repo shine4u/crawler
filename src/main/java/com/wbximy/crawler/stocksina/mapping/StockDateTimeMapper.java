@@ -11,6 +11,6 @@ public interface StockDateTimeMapper {
 	void insert(StockDateTime stockDateTime);
 	
 	// 查询一天的所有数据
-	List<StockDateTimeMapper> selectDate(String stockCode, Timestamp date);
+	List<StockDateTime> selectDate(String stockCode, Timestamp date);
 }
 
