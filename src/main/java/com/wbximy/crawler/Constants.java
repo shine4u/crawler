@@ -22,5 +22,7 @@ public class Constants {
 	// 最后的30 是和日期相关的数字，暂时定位常量即可
 	public static final String CIRCULATE_STOCK_HOLDER_PATTERN = "http://vip\\.stock\\.finance\\.sina\\.com\\.cn/corp/go\\.php/vCI_CirculateStockHolder/stockid/(\\d+)/displaytype/30\\.phtml";
 	
+	
+	// TODO
 }
 
