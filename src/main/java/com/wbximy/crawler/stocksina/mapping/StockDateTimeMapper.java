@@ -1,5 +1,16 @@
 package com.wbximy.crawler.stocksina.mapping;
 
-public class StockDateTime {
+import java.sql.Timestamp;
+import java.util.List;
 
+import com.wbximy.crawler.stocksina.domain.StockDateTime;
+
+
+public interface StockDateTimeMapper {
+	
+	void insert(StockDateTime stockDateTime);
+	
+	// 查询一天的所有数据
+	List<StockDateTimeMapper> selectDate(String stockCode, Timestamp date);
 }
+
