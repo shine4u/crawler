@@ -14,7 +14,6 @@ import com.wbximy.crawler.tools.RegexHelper;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
 public class TradeHistoryPageProcessor implements UrlPatPageProcessor {
