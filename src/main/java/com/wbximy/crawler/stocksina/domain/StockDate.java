@@ -1,11 +1,10 @@
 package com.wbximy.crawler.stocksina.domain;
 
 import java.sql.Date;
-
-
 import lombok.Data;
 
-@Data public class StockDate {
+@Data
+public class StockDate {
 	private String stockCode; // 600000 PRIMARY KEY
 	private Date date; // 日期 PRIMARY KEY
 

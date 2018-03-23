@@ -1,11 +1,8 @@
 package com.wbximy.crawler;
 
 public class Constants {
-	public static final String NBA_WIN007_SITE = "nba.win007.com";
-	
 	public static final String STOCK_SINA_SITE ="vip.stock.finance.sina.com.cn";
-	
-	
+
 	// pattern in stock.sina
 	
 	// http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradehistory.php?symbol=sz000858&date=2016-03-28

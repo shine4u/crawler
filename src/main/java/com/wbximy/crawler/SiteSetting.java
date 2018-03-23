@@ -17,6 +17,7 @@ public class SiteSetting {
 	}
 	
 	public static Site getSite(String site) {
+
 		return siteMap.get(site);
 	}
 }

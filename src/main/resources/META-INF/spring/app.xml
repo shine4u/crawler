@@ -3,23 +3,6 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-<!-- 
-
-	<bean id="shopDAO" class="com.weidian.wdp.shop.dao.ShopDAO" >
-		<property name="shopHonorMapper" ref="shopHonorMapper" />
-		<property name="userInfoMapper" ref="userInfoMapper" />
-		<property name="userDescInfoMapper" ref="userDescInfoMapper" />
-	</bean>
-
-    <bean id="shopService" class="com.weidian.wdp.shop.impl.ShopApiImpl" >
-    	<property name="shopDAO" ref="shopDAO" />
-    </bean>
-    <dubbo:service interface="com.weidian.wdp.shop.ShopApi" ref="shopService" version="0.0.1"/>
-    
-    <import resource="shop-mybatis.xml" />
-	<import resource="shop-redis-cache.xml" />
-	-->
-	
 	<import resource="mybatis.xml"/>
 	
 	<bean id="stocksinaDAO" class="com.wbximy.crawler.dao.StocksinaDAO" >

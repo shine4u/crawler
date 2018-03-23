@@ -1,10 +1,10 @@
 package com.wbximy.crawler.stocksina.domain;
 
 import java.sql.Timestamp;
-
 import lombok.Data;
 
-@Data public class Stock {
+@Data
+public class Stock {
 
 	private String stockCode; // 600000 PRIMARY KEY
 

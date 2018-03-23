@@ -1,10 +1,10 @@
 package com.wbximy.crawler.stocksina.domain;
 
 import java.sql.Timestamp;
-
 import lombok.Data;
 
-@Data public class StockHolder {
+@Data
+public class StockHolder {
 	String stockCode; // -- 股票代码 600000
 	Timestamp infoDate; // -- 出信息的日期
 	int holderPos; // INTEGER, --  股东位置

@@ -1,14 +1,14 @@
 package com.wbximy.crawler.stocksina.domain;
 
 import java.sql.Date;
-
 import lombok.Data;
 
 
 // stock data time 可以用来分析某一天的交易情况
 // 不用来进行长期存储，存储量太大
 
-@Data public class StockDateTime {
+@Data
+public class StockDateTime {
 	// TODO
 	private String stockCode; // 600000 PRIMARY KEY
 	private Date date; // 日期 PRIMARY KEY
